@@ -1,0 +1,26 @@
+.hero--container--textarea{
+    background: linear-gradient(90deg, #fef9e3 35%, #fcf6da 60%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-align: center;
+
+}
+
+.hero--container--textarea > h1 {
+    font-size: 150px;
+}
+
+.hero--container--textarea > p {
+    font-size: 50px;
+    text-align: justify;
+    margin: 0 34%;
+}
+
+.hero--container--textarea > p > span {
+    font-size: 60px;
+}
+
+
+

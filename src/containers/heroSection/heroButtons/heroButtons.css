@@ -1,0 +1,25 @@
+.hero--buttons{
+    text-align: center;
+    margin-top: 75px;
+
+}
+
+.hero--buttons > button {
+    width: 200px;
+    padding: 15px 10px;
+    margin: 0 60px;
+
+    font-size: 22px;
+    border-radius: 10px;
+    border: 0cap;
+    box-shadow: rgba(255, 255, 255, 0.703) 0px 7px 29px 0px;
+    background-color: #EEFCFF;
+
+    font-family: var(--font-family);
+    font-weight: 600;
+}
+
+.hero--buttons > button:hover{
+    box-shadow: rgba(255, 255, 255, 0.903) 0px 10px 39px 0px;
+    cursor: pointer;
+}

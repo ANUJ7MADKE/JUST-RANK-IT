@@ -1,0 +1,37 @@
+.plus--icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+}
+
+#plus--icon--room--card{
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.plus--icon:hover{
+    cursor: pointer;
+}
+
+.plus--icon:hover #plus--icon--room--card {
+    height: 80px;
+    animation: rotate-scale-down 0.65s linear both;
+    cursor: pointer;
+}
+
+
+
+
+@keyframes rotate-scale-down {
+    0% {
+      transform: scale(1) rotateZ(0);
+    }
+    50% {
+      transform: scale(0.5) rotateZ(180deg);
+    }
+    100% {
+      transform: scale(1) rotateZ(360deg);
+    }
+  }

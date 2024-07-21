@@ -1,0 +1,14 @@
+* {
+    box-sizing: content-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    
+    
+    
+}
+
+#main--container{
+    /* global 94%+ browsers support */
+    background: linear-gradient(239deg, #1A535C 20%, #000000 80%); 
+}

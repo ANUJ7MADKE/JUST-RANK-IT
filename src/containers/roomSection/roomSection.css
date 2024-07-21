@@ -1,0 +1,17 @@
+.room--container{
+    padding: 100px 100px 150px 100px;
+}
+
+.room--container > h2{
+    color: #fcf6da;
+    font-size: 40px;
+    padding-bottom: 30px;
+}
+
+.room-cards{
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: flex-start;
+    align-items: space-evenly;
+}
