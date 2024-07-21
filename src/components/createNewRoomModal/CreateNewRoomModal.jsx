@@ -25,7 +25,7 @@ function handleArrowClick(direction,imageContainer){
 function CreateNewRoomModal() {
   const {state,dispatch,CreateRoomModalRef} = useContext(WebContext)
   const imageContainerRef = useRef();
-  const [formData,setFormData] = useState({title: "", description:"",cardImage:""})
+  const [formData,setFormData] = useState({title: "", description:"",cardImage:"roomImage2.jpg"})
 
 
   const roomData = ["roomImage1.jpg","roomImage2.jpg","roomImage3.jpg","roomImage4.jpg"]
@@ -76,13 +76,14 @@ function CreateNewRoomModal() {
             <div className='create--new--room--container--form--text--input'>
                 <div className='create--new--room--container--form--text--input--title'>
                     <label>Room Title</label>
-                    <input placeholder='Name your room' name='title'
+                    <input placeholder='Name your room' name='title' required maxLength={30} minLength={2}
                      onChange={(event)=> setFormData((prev)=>({...prev,title:event.target.value}))} value={formData.title}/>
                 </div>
 
                 <div className='create--new--room--container--form--text--input--agenda'>
                     <label>Room Agenda</label>
                     <textarea placeholder='Description (e.g., A place to discuss and rank top books)' name='description'
+                        required maxLength={250} minLength={10}
                         onChange={(event)=> setFormData((prev)=>({...prev,description:event.target.value}))} value={formData.description}/>
                 </div>
             </div>
