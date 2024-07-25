@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
-import { WebContext } from '../../store/WebContext'
-
 import './createNewRoomCard.css'
 import plusIcon from '../../assets/plus-icon.png'
+import { useDispatch } from 'react-redux'
+import { showCreateRoomModalActions } from '../../store/showCreateRoomModalSlice'
 
 function CreateNewRoomCard() {
-  const {CreateRoomModalRef} = useContext(WebContext)
+  const dispatch = useDispatch()
+
   return (
-    <div onClick={()=>CreateRoomModalRef.current.showModal()} className='room--card plus--icon'>
+    <div onClick={()=>dispatch(showCreateRoomModalActions.openModal())} className='room--card plus--icon'>
       <img id='plus--icon--room--card' src={plusIcon} alt='+'/>
       <h3>Create Room</h3>
     </div>

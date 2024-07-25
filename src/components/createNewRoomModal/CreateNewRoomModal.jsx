@@ -1,11 +1,14 @@
-import React, { useContext,useRef, useState } from 'react'
+import React, { useEffect,useRef, useState } from 'react'
 
 import './createNewRoomModal.css'
 
 import crossIcon from '../../assets/cross-icon.png'
-import { WebContext } from '../../store/WebContext'
 
 import arrowImage from '../../assets/arrow.png'
+
+import { showCreateRoomModalActions } from '../../store/showCreateRoomModalSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { handleRoomSliceActions } from '../../store/handleRoomSlice'
 
 function handleArrowClick(direction,imageContainer){
     if (direction==="left"){
@@ -23,7 +26,25 @@ function handleArrowClick(direction,imageContainer){
 
 
 function CreateNewRoomModal() {
-  const {state,dispatch,CreateRoomModalRef} = useContext(WebContext)
+
+  const CreateRoomModalRef = useRef()
+  const isOpen = useSelector((state) => state.showCreateRoomModal.isOpen)
+  const rooms = useSelector((state)=> state.handleRoom.rooms)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (isOpen) {
+        if (CreateRoomModalRef.current) {
+            CreateRoomModalRef.current.showModal();
+        }
+    } else {
+        if (CreateRoomModalRef.current) {
+            CreateRoomModalRef.current.close();
+        }
+    }
+  }, [isOpen]);
+
+
   const imageContainerRef = useRef();
   const [formData,setFormData] = useState({title: "", description:"",cardImage:"roomImage2.jpg"})
 
@@ -37,16 +58,13 @@ function CreateNewRoomModal() {
     const newFormData = {...formData, adminAvatar:formData.cardImage, admin:"ANUJ MADKE"}
 
 
-    dispatch({
-        type:"UPDATE_ROOMS",
-        payload: [...state.rooms,newFormData]
-    })
+    dispatch(handleRoomSliceActions.updateRoom([...rooms,newFormData]))
 
     try {
         const response = await fetch("http://localhost:3000/create-room",
             {
                 method: 'PUT',
-                body: JSON.stringify([...state.rooms,newFormData]),
+                body: JSON.stringify([...rooms,newFormData]),
                 headers: {
                     'Content-Type':'application/json'
                 }
@@ -57,8 +75,8 @@ function CreateNewRoomModal() {
     }
     
 
-    setFormData({title: "", description:"",cardImage:""})
-    CreateRoomModalRef.current.close();
+    setFormData((prev)=>({...prev, title: "", description:""}))
+    dispatch(showCreateRoomModalActions.closeModal())
 
   }
 
@@ -68,7 +86,7 @@ function CreateNewRoomModal() {
         
         <div className='create--new--room--container--head'>
             <h2>Create New Room</h2>
-            <button onClick={()=>{CreateRoomModalRef.current.close()}}><img src={crossIcon} alt='X'/></button>
+            <button onClick={()=>{dispatch(showCreateRoomModalActions.closeModal())}}><img src={crossIcon} alt='X'/></button>
         </div>
     
 
@@ -111,7 +129,7 @@ function CreateNewRoomModal() {
 
 
             <button id='create--new--room--container--form--submit--button' type='submit'>Create</button>
-            <button onClick={()=>setFormData({title: "", description:"",cardImage:""})} id='create--new--room--container--form--clear--button' type='reset'>Clear</button>
+            <button onClick={()=>setFormData((prev)=>({...prev, title: "", description:""}))} id='create--new--room--container--form--clear--button' type='reset'>Clear</button>
         </form>
 
     </dialog>

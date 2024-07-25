@@ -1,34 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 
 import './roomSection.css'
-
-import { WebContext } from '../../store/WebContext'
 import RoomCard from './roomCard/RoomCard'
 import CreateNewRoomCard from '../../components/createNewRoomCard/CreateNewRoomCard'
+import { useDispatch, useSelector } from 'react-redux'
+import { handleRoomSliceActions } from '../../store/handleRoomSlice'
 
 
 function RoomSection() {
-  const {state,dispatch} = useContext(WebContext)
+  const rooms = useSelector((state)=> state.handleRoom.rooms)
+  const dispatch = useDispatch()
 
   useEffect(()=>{
     async function fetchRecentRooms(){
       const response = await fetch('http://localhost:3000/user-recents')
       const recentRoomsData = await response.json()
 
-      dispatch(
-        {
-          type :"UPDATE_ROOMS",
-          payload: recentRoomsData.recentRooms,
-        }
-      )  
+      dispatch(handleRoomSliceActions.updateRoom(recentRoomsData.recentRooms))  
     }
 
     fetchRecentRooms()
     
   },[])
 
-  const recentRooms = state.rooms
+  const recentRooms = rooms
   
 
   const roomCardList = recentRooms.map(

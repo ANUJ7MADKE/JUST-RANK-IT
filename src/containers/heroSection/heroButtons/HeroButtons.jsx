@@ -1,12 +1,15 @@
-import React, { useContext } from 'react'
-import { WebContext } from '../../../store/WebContext'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './heroButtons.css'
+import { showCreateRoomModalActions } from '../../../store/showCreateRoomModalSlice'
 const HeroButtons = () => {
-  const {CreateRoomModalRef} = useContext(WebContext)
+
+  const dispatch = useDispatch()
+  const CreateRoomModalRef =  useSelector((state) => state.showCreateRoomModal.CreateRoomModalRef)
 
   function handleCreateRoom(){
-    CreateRoomModalRef.current.showModal()
+    dispatch(showCreateRoomModalActions.openModal())
   }
 
   return (

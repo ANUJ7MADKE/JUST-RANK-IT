@@ -3,21 +3,21 @@ import React, { useContext } from 'react'
 import './roomCard.css'
 import enterIcon from '../../../assets/enter-icon.png'
 import deleteIcon from '../../../assets/delete-icon.png'
-import {WebContext} from '../../../store/WebContext'
+import { handleRoomSliceActions } from '../../../store/handleRoomSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 function RoomCard({admin,adminAvatar,cardImage,title,description}) {
-  const {state,dispatch} = useContext(WebContext)
+  const rooms = useSelector((state)=> state.handleRoom.rooms)
+  const dispatch = useDispatch()
   const [settingDisplayed,setSettingDisplayed] = React.useState(false)
 
   async function handleDeleteCard({admin,title,description}){
-    const updatedRoomCards = state.rooms.filter((roomCard) => 
+    const updatedRoomCards = rooms.filter((roomCard) => 
       !(roomCard.title === title && roomCard.admin === admin && roomCard.description === description)
   );  
     
-    dispatch({
-      type:"UPDATE_ROOMS",
-      payload: [...updatedRoomCards]
-    })
+    dispatch(handleRoomSliceActions.updateRoom([...updatedRoomCards]))
+    
 
     try{
       const response = await fetch("http://localhost:3000/delete-room",
